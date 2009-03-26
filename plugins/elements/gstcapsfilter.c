@@ -200,14 +200,12 @@ gst_capsfilter_set_property (GObject * object, guint prop_id,
       }
       GST_OBJECT_UNLOCK (GST_BASE_TRANSFORM_SINK_PAD (object));
 
-      if (suggest) {
-        gst_base_transform_suggest (GST_BASE_TRANSFORM (object), suggest, 0);
+      GST_DEBUG_OBJECT (capsfilter, "suggesting new caps %" GST_PTR_FORMAT,
+          suggest);
+      gst_base_transform_suggest (GST_BASE_TRANSFORM (object), suggest, 0);
+      if (suggest)
         gst_caps_unref (suggest);
-      }
 
-      /* FIXME: Need to activate these caps on the pads
-       * http://bugzilla.gnome.org/show_bug.cgi?id=361718
-       */
       break;
     }
     default:
